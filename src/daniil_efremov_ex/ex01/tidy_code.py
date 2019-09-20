@@ -23,10 +23,11 @@ if __name__ == '__main__':
 
     num_of_guesses = 3
     win_condition = False
+    correct_num = rand_int()
 
     while win_condition is False and num_of_guesses > 0:
 
-        win_condition = equal_checker(rand_int(), negative_checker())
+        win_condition = equal_checker(correct_num, negative_checker())
 
         if win_condition is False:
             print('Wrong, try again!')
@@ -35,4 +36,4 @@ if __name__ == '__main__':
     if num_of_guesses > 0:
         print('You won {} points.'.format(num_of_guesses))
     else:
-        print('You lost. Correct answer: {}.'.format(rand_int()))
+        print('You lost. Correct answer: {}.'.format(correct_num))
