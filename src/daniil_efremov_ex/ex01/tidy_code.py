@@ -1,7 +1,7 @@
 __author__ = 'Daniil Efremov'
 __email__ = 'daniil.vitalevich.efremov@nmbu.no'
 
-from random import randint as rand_num
+from random import randint
 
 
 def negative_checker():
@@ -12,7 +12,7 @@ def negative_checker():
 
 
 def rand_int():
-    return rand_num(2, 12)
+    return randint(1, 6) + randint(1, 6)
 
 
 def equal_checker(right_num, guessed_num):

@@ -1,6 +1,6 @@
 def letter_freq(txt):
-    txt.lower()
-    single_item = [item for item in txt]
+    lower_text = txt.lower()
+    single_item = [item for item in lower_text]
 
     return dict((item, single_item.count(item)) for item in single_item)
 
