@@ -1,10 +1,10 @@
 def bubble_sort(some_data):
     dat = list(some_data)
-    len_string = len(dat) - 1
+    num_of_steps = len(dat) - 1
 
-    for i in range(len_string):
+    for i in range(num_of_steps):
 
-        for j in range(len_string - i):
+        for j in range(num_of_steps - i):
             if dat[j] > dat[j + 1]:
                 dat[j], dat[j + 1] = dat[j + 1], dat[j]
 
