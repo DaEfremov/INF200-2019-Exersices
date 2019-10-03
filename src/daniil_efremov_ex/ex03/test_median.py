@@ -11,6 +11,9 @@ def median(data):
     sort_data = sorted(data)
     num_el = len(sort_data)
 
+    if data == []:
+        raise ValueError
+
     if num_el % 2 == 1:
         return sort_data[num_el // 2]
     else:
@@ -49,3 +52,8 @@ def test_median_of_unordered_list():
     unordered_list = [1, 5, 3, 4, 2]
 
     assert median(unordered_list) == 3
+
+
+def test_median_raises_value_error_on_empty_list():
+    with pytest.raises(ValueError):
+        median([])
