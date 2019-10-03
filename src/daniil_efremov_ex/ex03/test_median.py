@@ -57,3 +57,10 @@ def test_median_of_unordered_list():
 def test_median_raises_value_error_on_empty_list():
     with pytest.raises(ValueError):
         median([])
+
+
+def test_original_unchanged():
+    data = [3, 2, 1]
+    median_data = median(data)
+
+    assert data == [3, 2, 1]
