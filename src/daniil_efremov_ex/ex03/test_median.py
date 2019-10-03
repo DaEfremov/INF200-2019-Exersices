@@ -64,3 +64,10 @@ def test_original_unchanged():
     median_data = median(data)
 
     assert data == [3, 2, 1]
+
+
+def test_median_works_with_tuples():
+    tuples_list = (1, 3, 5)
+    median_tuple = median(tuples_list)
+
+    assert median_tuple == 3
