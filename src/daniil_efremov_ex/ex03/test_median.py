@@ -19,3 +19,9 @@ def median(data):
 
 def test_median_of_singleton():
     assert median([4]) == 4
+
+
+def test_median_of_list_with_odd_number():
+    odd_list = [1, 2, 3]
+
+    assert median(odd_list) == 2
