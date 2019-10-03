@@ -31,3 +31,9 @@ def test_median_of_list_with_even_number():
     even_list = [2, 4]
 
     assert median(even_list) == 3
+
+
+def test_median_of_ordered_list():
+    ordered_list = [1, 2, 3, 4, 5]
+
+    assert median(ordered_list) == 3
