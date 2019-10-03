@@ -11,7 +11,7 @@ def median(data):
     sort_data = sorted(data)
     num_el = len(sort_data)
 
-    if data == []:
+    if num_el == 0:
         raise ValueError
 
     if num_el % 2 == 1:
