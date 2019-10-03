@@ -43,3 +43,9 @@ def test_median_of_reverse_ordered_list():
     reverse_ordered_list = [5, 4, 3, 2, 1]
 
     assert median(reverse_ordered_list) == 3
+
+
+def test_median_of_unordered_list():
+    unordered_list = [1, 5, 3, 4, 2]
+
+    assert median(unordered_list) == 3
