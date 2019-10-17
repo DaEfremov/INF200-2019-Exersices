@@ -1,9 +1,49 @@
 # -*- coding: utf-8 -*-
 
-__author__ = 'Daniil Efremov'
-__email__ = 'daniil.vitalevich.efremov@nmbu.no'
+__author__ = 'Daniil Efremov', 'Sigurd Grøtan'
+__email__ = 'daniil.vitalevich.efremov@nmbu.no', 'sgrotan@nmbu.no'
 
-import random
+import random as rd
+
+
+def throw_dice():
+    return rd.randint(1, 6)
+
+
+def check_ladder_or_snake(position):
+    critical_pos = {1: 40, 8: 10, 36: 52, 43: 62, 49: 79,
+                    65: 82, 68: 85, 24: 5, 33: 3, 42: 30,
+                    56: 37, 64: 27, 74: 12, 87: 70}
+
+    if position in critical_pos:
+        position = critical_pos[position]
+
+    return position
+
+
+def create_players(num_players):
+    players = []
+
+    for i in range(num_players):
+        players.append(0)
+
+    return players
+
+
+def make_a_move(players):
+    for index, old_pos in enumerate(players):
+
+        dice = throw_dice()
+        new_pos = old_pos + dice
+
+        if new_pos > 90:
+            new_pos = 90 - (dice - (90 - old_pos))  # FIKS
+
+        new_pos = check_ladder_or_snake(new_pos)
+
+        players[index] = new_pos
+
+    return players
 
 
 def single_game(num_players):
@@ -20,6 +60,20 @@ def single_game(num_players):
     num_moves : int
         Number of moves the winning player needed to reach the goal
     """
+
+    players_positions = create_players(num_players)
+    num_of_moves = 0
+    win_condition = False
+
+    while win_condition == False:
+        num_of_moves += 1
+
+        players_positions = make_a_move(players_positions)
+
+        if 90 in players_positions:
+            win_condition = True
+
+    return num_of_moves
 
 def multiple_games(num_games, num_players):
     """
