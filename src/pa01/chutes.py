@@ -6,3 +6,4 @@ __email__ = 'daniil.vitalevich.efremov@nmbu.no'
 
 print("bug")
 print("knug")
+print("sentrifug")
