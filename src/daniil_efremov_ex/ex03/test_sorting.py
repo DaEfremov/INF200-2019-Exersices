@@ -45,7 +45,7 @@ def test_sorted_is_not_original():
     data = [3, 2, 1]
     sorted_data = bubble_sort(data)
 
-    assert data != sorted_data
+    assert data is not sorted_data
 
 
 def test_original_unchanged():
@@ -84,8 +84,8 @@ def test_sort_reversed():
 
 def test_sort_all_equal():
     """Test that sorting handles data with identical elements."""
-    data = [1, 1, 3, 1]
-    manually_sorted_data = [1, 1, 1, 3]
+    data = [1, 1, 1, 1]
+    manually_sorted_data = [1, 1, 1, 1]
     sorted_data = bubble_sort(data)
 
     assert sorted_data == manually_sorted_data
