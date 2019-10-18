@@ -4,6 +4,7 @@ __author__ = 'Daniil Efremov', 'Sigurd Grøtan'
 __email__ = 'daniil.vitalevich.efremov@nmbu.no', 'sgrotan@nmbu.no'
 
 import random as rd
+import statistics
 
 
 def throw_dice():
@@ -75,6 +76,7 @@ def single_game(num_players):
 
     return num_of_moves
 
+
 def multiple_games(num_games, num_players):
     """
     Returns durations of a number of games.
@@ -91,6 +93,14 @@ def multiple_games(num_games, num_players):
     num_moves : list
         List with the numbedr of moves needed in each game.
     """
+
+    num_moves = []
+
+    for i in range(num_games):
+        num_moves.append(single_game(num_players))
+
+    return num_moves
+
 
 def multi_game_experiment(num_games, num_players, seed):
     """
@@ -110,3 +120,22 @@ def multi_game_experiment(num_games, num_players, seed):
     num_moves : list
         List with the numbedr of moves needed in each game.
     """
+    rd.seed(seed)
+    num_moves = multiple_games(num_games, num_players)
+    return num_moves
+
+
+if __name__ == '__main__':
+
+    experiment_list = multi_game_experiment(100, 4, 1)
+    sorted_experiment_list = sorted(experiment_list)
+    median = (sorted_experiment_list[49] + sorted_experiment_list[50]) / 2
+    mean = sum(sorted_experiment_list) / len(sorted_experiment_list)
+    stdev = statistics.stdev(sorted_experiment_list)
+
+    print(f"""Shortest game: {sorted_experiment_list[0]} 
+    \nLongest game: {sorted_experiment_list[99]} 
+    \nMedian: {median}
+    \nMean: {mean}
+    \nStandard Deviation: {stdev}
+    """)
