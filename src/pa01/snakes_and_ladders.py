@@ -38,7 +38,7 @@ def make_a_move(players):
         new_pos = old_pos + dice
 
         if new_pos > 90:
-            new_pos = 90 - (dice - (90 - old_pos))  # FIKS
+            new_pos = 90 - (dice - (90 - old_pos))
 
         new_pos = check_ladder_or_snake(new_pos)
 
