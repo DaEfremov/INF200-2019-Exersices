@@ -64,15 +64,11 @@ def single_game(num_players):
 
     players_positions = create_players(num_players)
     num_of_moves = 0
-    win_condition = False
 
-    while win_condition == False:
+    while max(players_positions) < 90:
+
         num_of_moves += 1
-
         players_positions = make_a_move(players_positions)
-
-        if 90 in players_positions:
-            win_condition = True
 
     return num_of_moves
 
@@ -133,8 +129,8 @@ if __name__ == '__main__':
     mean = sum(sorted_experiment_list) / len(sorted_experiment_list)
     stdev = statistics.stdev(sorted_experiment_list)
 
-    print(f"""Shortest game: {sorted_experiment_list[0]} 
-    \nLongest game: {sorted_experiment_list[99]} 
+    print(f"""Shortest game: {min(sorted_experiment_list)} 
+    \nLongest game: {max(sorted_experiment_list)} 
     \nMedian: {median}
     \nMean: {mean}
     \nStandard Deviation: {stdev}
