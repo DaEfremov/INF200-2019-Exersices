@@ -7,22 +7,20 @@ Your code should pass these tests before submission.
 
 import pytest
 import random
-# from myrand import LCGRand, ListRand
-# from walker import Walker
 # I did not manage to make the imports work, so i copied in my code:
 
 __author__ = 'Hans Ekkehard Plesser'
 __email__ = 'hans.ekkehard.plesser@nmbu.no'
 
-
 class LCGRand:
+    a = 16807
+    m = 2 ** 31 - 1
+
     def __init__(self, seed):
         self.seed = seed
 
     def rand(self):
-        a = 16807
-        m = 2 ** 31 - 1
-        self.seed = a * self.seed % m
+        self.seed = LCGRand.a * self.seed % LCGRand.m
 
         return self.seed
 
@@ -30,19 +28,19 @@ class LCGRand:
 class ListRand:
     def __init__(self, nummer_liste):
         self.nummer_liste = nummer_liste
-        self.nr_i_lista = 0
+        self.index = 0
 
     def rand(self):
 
-        if self.nr_i_lista >= len(self.nummer_liste):
+        if self.index >= len(self.nummer_liste):
             raise RuntimeError
 
         else:
 
-            neste_nummer = self.nummer_liste[self.nr_i_lista]
-            self.nr_i_lista += 1
+            next_number = self.nummer_liste[self.index]
+            self.index += 1
 
-            return neste_nummer
+            return next_number
 
 
 class Walker:
@@ -56,7 +54,7 @@ class Walker:
         self.number_of_steps += 1
 
     def is_at_home(self):
-        if self.position >= self.end_position:
+        if self.position == self.end_position:
             return True
         else:
             return False
@@ -74,7 +72,7 @@ def walk_home_simulation(distance, number_of_simulations):
 
         walk = Walker(0, distance)
 
-        while walk.is_at_home() is False:
+        while not walk.is_at_home():
             walk.move()
 
         path_len_list.append(walk.get_steps())

@@ -17,7 +17,7 @@ class Walker:
         self.number_of_steps += 1
 
     def is_at_home(self):
-        if self.position >= self.end_position:
+        if self.position == self.end_position:
             return True
         else:
             return False
@@ -35,7 +35,7 @@ def walk_home_simulation(distance, number_of_simulations):
 
         walk = Walker(0, distance)
 
-        while walk.is_at_home() is False:
+        while not walk.is_at_home():
             walk.move()
 
         path_len_list.append(walk.get_steps())

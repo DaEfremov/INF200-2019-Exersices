@@ -5,13 +5,14 @@ __email__ = 'daniil.vitalevich.efremov@nmbu.no'
 
 
 class LCGRand:
+    a = 16807
+    m = 2 ** 31 - 1
+
     def __init__(self, seed):
         self.seed = seed
 
     def rand(self):
-        a = 16807
-        m = 2 ** 31 - 1
-        self.seed = a * self.seed % m
+        self.seed = LCGRand.a * self.seed % LCGRand.m
 
         return self.seed
 
@@ -19,34 +20,34 @@ class LCGRand:
 class ListRand:
     def __init__(self, nummer_liste):
         self.nummer_liste = nummer_liste
-        self.nr_i_lista = 0
+        self.index = 0
 
     def rand(self):
 
-        if self.nr_i_lista >= len(self.nummer_liste):
+        if self.index >= len(self.nummer_liste):
             raise RuntimeError
 
         else:
 
-            neste_nummer = self.nummer_liste[self.nr_i_lista]
-            self.nr_i_lista += 1
+            next_number = self.nummer_liste[self.index]
+            self.index += 1
 
-            return neste_nummer
+            return next_number
 
 
 if __name__ == '__main__':
     seed_1 = 1
-    LCG_test_1 = LCGRand(seed_1)
+    lcg_test = LCGRand(seed_1)
 
     print(f"LCGRand tester:\nWith a seed of {seed_1}\nRun 1: "
-          f"{LCG_test_1.rand()}\nRun 2: "
-          f"{LCG_test_1.rand()}\nRun 3: "
-          f"{LCG_test_1.rand()}\n ")
+          f"{lcg_test.rand()}\nRun 2: "
+          f"{lcg_test.rand()}\nRun 3: "
+          f"{lcg_test.rand()}\n ")
 
     test_liste = [1, 2, 3, 4, 5]
-    ListRand_test_1 = ListRand(test_liste)
+    listrand_test = ListRand(test_liste)
 
     print(f"ListRand tester:\nWith a list of {test_liste}\nRun 1: "
-          f"{ListRand_test_1.rand()}\nRun 2: "
-          f"{ListRand_test_1.rand()}\nRun 3: "
-          f"{ListRand_test_1.rand()} ")
+          f"{listrand_test.rand()}\nRun 2: "
+          f"{listrand_test.rand()}\nRun 3: "
+          f"{listrand_test.rand()} ")
