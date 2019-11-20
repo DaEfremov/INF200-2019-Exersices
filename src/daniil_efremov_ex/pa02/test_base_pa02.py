@@ -41,8 +41,6 @@ class TestBoard:
         b = cs.Board()
         assert isinstance(b.position_adjustment(1), (int, float))
 
-B_Test = TestBoard()
-B_Test.test_position_adjustment()
 
 class TestPlayer:
     """
