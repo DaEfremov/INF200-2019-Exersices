@@ -84,11 +84,11 @@ class Simulation:
         self.board = board
         self.seed = seed
         self.result_list = []
+        self.winner_list = []
         if randomize_players:
             shuffle(self.player_field)
 
     def single_game(self):
-        game_results = []
         for player_class in self.player_field:
             number_of_steps = 0
             player = player_class(self.board)
@@ -96,10 +96,10 @@ class Simulation:
                 player.move()
                 number_of_steps += 1
 
-            game_results.append((number_of_steps, player_class.__name__))
+            self.result_list.append((number_of_steps, player_class.__name__))
 
-        winner = game_results[0]
-        for result in game_results[1:]:
+        winner = self.result_list[0]
+        for result in self.result_list[1:]:
             if result[0] < winner[0]:
                 winner = result
 
@@ -108,25 +108,38 @@ class Simulation:
 
     def run_simulation(self, num_sim):
         for _ in range(num_sim):
-            self.result_list.append(self.single_game())
+            self.winner_list.append(self.single_game())
 
     def get_results(self):
-        return self.result_list
-
-    def players_per_type(self):
-        player_dict = {'Player': 0, 'LazyPlayer': 0, 'ResilientPlayer': 0}
-        #        for player in self.player_field:
-        #            player_name = player.__name__
-        #            player_dict[player_name] += 1
-        return player_dict
-
-    def winners_per_type(self):
-        return {'Player': 0, 'LazyPlayer': 0, 'ResilientPlayer': 0}
+        return self.winner_list
 
     def durations_per_type(self):
-        return {'Player': [0, 0], 'LazyPlayer': [0, 0], 'ResilientPlayer': [0, 0]}
+        durations_dict = {'Player': [], 'LazyPlayer': [], 'ResilientPlayer': []}
+
+        for player in self.result_list:
+            durations_dict[player[1]].append(player[0])
+
+        return durations_dict
+
+    def winners_per_type(self):
+        winner_dict = {'Player': 0, 'LazyPlayer': 0, 'ResilientPlayer': 0}
+
+        for winner in self.winner_list:
+            winner_dict[winner[1]] += 1
+
+        return winner_dict
+
+    def players_per_type(self):
+        players_dict = {'Player': 0, 'LazyPlayer': 0, 'ResilientPlayer': 0}
+
+        for player in self.player_field:
+            players_dict[player.__name__] += 1
+
+        return players_dict
 
 sim = Simulation([Player, Player, ResilientPlayer, ResilientPlayer,ResilientPlayer, LazyPlayer])
 
 sim.run_simulation(5)
-print(sim.get_results())
+print(sim.winners_per_type())
+print(sim.durations_per_type())
+print(sim.players_per_type())
