@@ -21,6 +21,8 @@ class Board:
     def goal_reached(self, position):
         if position >= self.goal:
             return True
+        else:
+            return False
 
 
     def position_adjustment(self, position):
