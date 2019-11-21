@@ -150,6 +150,15 @@ class Simulation:
         return winner_dict
 
     def players_per_type(self):
+        """
+        Class method which counts number of players per player type.
+
+        Parameters:
+        Nothing
+
+        Returns:
+        dict: Dictionary containing player names as keys and corresponding player count as value.
+        """
         players_dict = {'Player': 0, 'LazyPlayer': 0, 'ResilientPlayer': 0}
 
         for player in self.player_field:
@@ -165,3 +174,5 @@ sim.run_simulation(5)
 print(sim.winners_per_type())
 print(sim.durations_per_type())
 print(sim.players_per_type())
+
+
