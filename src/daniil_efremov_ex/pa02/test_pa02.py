@@ -12,6 +12,7 @@ class TestBoard:
     """
 
     def test_goal_reached(self):
+        """Test that checks whether 2 positions have reached goal or not"""
 
         position_1 = 80
         position_2 = 100
@@ -20,6 +21,8 @@ class TestBoard:
         assert b.goal_reached(position_2) is True
 
     def test_position_adjustment(self):
+        """Test that checks if the position is changed when
+        player lands on the chute or ladder tile."""
 
         position_1 = 1
         position_2 = 33
@@ -31,8 +34,11 @@ class TestBoard:
 
 
 class TestPlayer:
+    """Test for Player class"""
 
     def test_move(self):
+        """Test that checks if position is changed when
+        the class method move() is being used"""
 
         p = cs.Player(cs.Board())
         pre_pos = p.position
@@ -41,6 +47,7 @@ class TestPlayer:
         assert pre_pos != post_pos
 
     def test_move_less_than_1(self):
+        """Test that checks if a player can get to a negative numbered tile"""
 
         for _ in range(10000):
             p = cs.Player(cs.Board())
@@ -48,7 +55,8 @@ class TestPlayer:
             assert p.position > 0
 
     def test_move_not_chute_or_ladder(self):
-
+        """Test that checks if a player that hits a chute or ladder tile
+        will move along to the assigned tile right away"""
         for _ in range(10000):
             p = cs.Player(cs.Board(ladders=[(1, 40)], chutes=[(33, 3)]))
             for _ in range(100):
@@ -57,8 +65,10 @@ class TestPlayer:
 
 
 class TestSimulation:
+    """Tests for simulation class"""
 
     def test_single_game(self):
+        """Test that checks whether the right winner is chosen properly"""
         game = cs.Simulation()
         winner = game.single_game()
 
@@ -69,7 +79,13 @@ class TestSimulation:
             assert winner[0] == game.result_list[1][0]
 
     def test_run_simulation(self):
-        pass
+        """Test that checks if the length of the winner_list is
+        the same as the num_sim(int) input."""
+        game = cs.Simulation()
+        num_sim = 5
+        game.run_simulation(num_sim)
+
+        assert len(game.winner_list) == num_sim
 
     def test_get_results(self):
         pass
