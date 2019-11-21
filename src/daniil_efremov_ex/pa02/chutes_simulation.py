@@ -3,7 +3,7 @@
 __author__ = 'Daniil Efremov', 'Sigurd Grøtan'
 __email__ = 'daniil.vitalevich.efremov@nmbu.no', 'sgrotan@nmbu.no'
 
-from random import randint, shuffle
+from random import randint, shuffle, seed
 
 
 class Board:
@@ -160,11 +160,11 @@ class Simulation:
 
         self.player_field = player_field
         self.board = board
-        self.seed = seed
         self.result_list = []
         self.winner_list = []
         if randomize_players:
             shuffle(self.player_field)
+        seed(seed)
 
     def single_game(self):
         """Class method performs a single game of chutes and ladders
