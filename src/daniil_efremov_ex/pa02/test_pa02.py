@@ -16,8 +16,8 @@ class TestBoard:
         position_1 = 80
         position_2 = 100
         b = cs.Board(goal=90)
-        assert b.goal_reached(position_1) is True
-        assert b.goal_reached(position_2) is False
+        assert b.goal_reached(position_1) is False
+        assert b.goal_reached(position_2) is True
 
     def test_position_adjustment(self):
 
@@ -59,7 +59,14 @@ class TestPlayer:
 class TestSimulation:
 
     def test_single_game(self):
-        pass
+        game = cs.Simulation()
+        winner = game.single_game()
+
+        if game.result_list[0][0] <= game.result_list[1][0]:
+            assert winner[0] == game.result_list[0][0]
+
+        else:
+            assert winner[0] == game.result_list[1][0]
 
     def test_run_simulation(self):
         pass
