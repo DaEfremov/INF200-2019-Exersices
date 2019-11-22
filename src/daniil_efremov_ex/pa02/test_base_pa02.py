@@ -105,7 +105,7 @@ class TestSimulation:
         """Constructor with kw args works."""
         b = cs.Board()
         s = cs.Simulation(player_field=[cs.Player, cs.Player],
-                          board=b, seed=123, randomize_players=True)
+                          board=b, chosen_seed=123, randomize_players=True)
         assert isinstance(s, cs.Simulation)
 
     def test_single_game(self):

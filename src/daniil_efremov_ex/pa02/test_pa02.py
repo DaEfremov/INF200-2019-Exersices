@@ -4,6 +4,7 @@ __author__ = 'Daniil Efremov', 'Sigurd Grøtan'
 __email__ = 'daniil.vitalevich.efremov@nmbu.no', 'sgrotan@nmbu.no'
 
 import chutes_simulation as cs
+import pytest
 
 
 class TestBoard:
