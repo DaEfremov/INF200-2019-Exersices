@@ -3,6 +3,7 @@
 __author__ = 'Daniil Efremov', 'Sigurd Grøtan'
 __email__ = 'daniil.vitalevich.efremov@nmbu.no', 'sgrotan@nmbu.no'
 
+
 from random import randint, shuffle, seed
 
 
@@ -155,8 +156,8 @@ class Simulation:
     randomize_players (bool): Chooses whether or not to shuffle player_field
     """
 
-    def __init__(self, player_field=[Player, Player], board=Board(), seed=123,
-                 randomize_players=True):
+    def __init__(self, player_field=[Player, Player], board=Board(),
+                 chosen_seed=123, randomize_players=True):
 
         self.player_field = player_field
         self.board = board
@@ -164,7 +165,7 @@ class Simulation:
         self.winner_list = []
         if randomize_players:
             shuffle(self.player_field)
-        seed(seed)
+        seed(chosen_seed)
 
     def single_game(self):
         """Class method performs a single game of chutes and ladders

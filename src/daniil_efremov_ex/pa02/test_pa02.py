@@ -88,13 +88,39 @@ class TestSimulation:
         assert len(game.winner_list) == num_sim
 
     def test_get_results(self):
-        pass
+        """Test that checks if winner_list is a list, and if the elements
+        in the lists are tuples."""
+        game = cs.Simulation()
+        game.run_simulation(1)
+        type_1 = game.winner_list
+        type_2 = game.winner_list[0]
+
+        assert isinstance(type_1, list)
+        assert isinstance(type_2, tuple)
 
     def test_players_per_type(self):
-        pass
+        """Test that checks if the value in
+        the given dictionary is an integer"""
+        game = cs.Simulation()
+        game.run_simulation(1)
+        player_dict = game.players_per_type()
+
+        assert isinstance(player_dict.get('Player'), int)
 
     def test_winners_per_type(self):
-        pass
+        """Test that checks if the value in
+        the given dictionary is an integer"""
+        game = cs.Simulation()
+        game.run_simulation(1)
+        winner_dict = game.winners_per_type()
+
+        assert isinstance(winner_dict.get('Player'), int)
 
     def test_durations_per_type(self):
-        pass
+        """Test that checks if the value in
+        the given dictionary is a list"""
+        game = cs.Simulation()
+        game.run_simulation(1)
+        duration_dict = game.durations_per_type()
+
+        assert isinstance(duration_dict.get('Player'), list)
