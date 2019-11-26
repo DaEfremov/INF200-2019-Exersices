@@ -38,6 +38,7 @@ def test_sigmoid():
     assert abs(lr.sigmoid(1e5) - 1) < 1e-8
 
 
+
 # This function will call the `coef()` and `X()` fixture functions and use what
 # those functions return as input.
 def test_predict_proba(coef, X):
