@@ -9,7 +9,7 @@ from unittest import mock
 import numpy as np
 import pytest
 
-from . import logistic_regression as lr
+import logistic_regression as lr
 
 
 # The fixtures are called whenever their name is used as input to a test
@@ -37,6 +37,7 @@ def test_sigmoid():
     assert abs(lr.sigmoid(-1e5)) < 1e-8
     assert abs(lr.sigmoid(1e5) - 1) < 1e-8
 
+test_sigmoid()
 
 
 # This function will call the `coef()` and `X()` fixture functions and use what

@@ -52,6 +52,7 @@ def predict_proba(coef, X):
         The predicted class probabilities.
     """
     p = sigmoid(np.dot(X, coef))
+
     return p
 
 
