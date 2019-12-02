@@ -60,11 +60,12 @@ def logistic_gradient(coef, X, y):
     r"""Returns the gradient of a logistic regression model.
     The gradient is given by
     .. math::
-        \nabla_w L(\mathbf{w}; X, \mathbf{y}) = \sum_i \mathbf{x}_i (y_i - \hat{y}_i),
-    or, elementwise,
+        \nabla_w L(\mathbf{w}; X,
+        \mathbf{y}) = \sum_i \mathbf{x}_i (y_i - \hat{y}_i), or, elementwise,
     .. math::
-        \left[\nabla_w L(\mathbf{w}; X, \mathbf{y})\right]_j = \frac{\partial L}{\partial w_j}
-                                                             = \sum_i X_{ij} (y_i - \hat{y}_i),
+        \left[\nabla_w L(\mathbf{w}; X, \mathbf{y})\right]_j =
+        \frac{\partial L}{\partial w_j}
+        = \sum_i X_{ij} (y_i - \hat{y}_i),
     where :math:`\hat{y}_i` is the predicted value for data point
     :math:`i` and is given by :math:`\sigma(x_i^Tw)`, where
     :math:`\sigma(z)` is the sigmoidal function.
@@ -82,8 +83,12 @@ def logistic_gradient(coef, X, y):
         The gradient of the cross entropy loss related to the linear
         logistic regression model.
     """
-    gradient = np.dot(X.T, (coef - y)) / y.shape[0]
 
+    y_hat = predict_proba(coef, X)
+    something = y - y_hat
+    gradient = np.zeros(np.shape(coef))
+    for i in range(len(X[0, :])):
+        gradient[i] = something.dot(X[:, i])
     return gradient
 
 
@@ -135,10 +140,14 @@ class LogisticRegression(BaseEstimator, ClassifierMixin):
         learning_rate : float (default=0.01)
             The step-size for the gradient descent updates.
         random_state : np.random.random_state or int or None (default=None)
-            A numpy random state object or a seed for a numpy random state object.
+            A numpy random state object or a seed for a
+            numpy random state object.
         """
-        # Your code here
-        pass
+
+        self.max_iter = max_iter
+        self.tol = tol
+        self.learning_rate = learning_rate
+        self.random_state = random_state
 
     def _has_converged(self, coef, X, y):
         r"""Whether the gradient descent algorithm has converged.
@@ -163,15 +172,18 @@ class LogisticRegression(BaseEstimator, ClassifierMixin):
         has_converged : bool
             True if the convergence criteria above is met, False otherwise.
         """
-        # Your code here
-        pass
+
+        gradient = logistic_gradient(coef, X, y)
+        k = np.linalg.norm(gradient)
+        return k < self.tol
 
     def _fit_gradient_descent(self, coef, X, y):
         r"""Fit the logisitc regression model to the data given initial weights
         Gradient descent works by iteratively applying the following update
         rule
         .. math::
-            \mathbf{w}^{(k)} \gets \mathbf{w}^{(k-1)} - \eta \nabla L(\mathbf{w}^{(k-1)}; X, \mathbf{y}),
+            \mathbf{w}^{(k)} \gets \mathbf{w}^{(k-1)} - \eta
+            \nabla L(\mathbf{w}^{(k-1)}; X, \mathbf{y}),
         where :math:`\mathbf{w}^{(k)}` is the coefficient vector at iteration
         ``k``, :math:`\mathbf{w}^{(k-1)}` is the coefficient vector at
         iteration k-1, :math:`\eta` is the learning rate and
@@ -194,8 +206,14 @@ class LogisticRegression(BaseEstimator, ClassifierMixin):
         coef : np.ndarray(shape=(n,))
             The logistic regression weights
         """
-        # Your code here
-        pass
+
+        for i in range(self.max_iter):
+            if self._has_converged(coef, X, y):
+                break
+            else:
+                coef = coef - self.learning_rate * \
+                       logistic_gradient(coef, X, y)
+        return coef
 
     def fit(self, X, y):
         """Fit a logistic regression model to the data.
@@ -277,10 +295,11 @@ if __name__ == "__main__":
     X = np.random.standard_normal((100, 5))
     coef = np.random.standard_normal(5)
     y = predict_proba(coef, X) > 0.5
-
     # Fit a logistic regression model to the X and y vector
     # Fill in your code here.
     # Create a logistic regression object and fit it to the dataset
+    lr_model = LogisticRegression()
+    lr_model.fit(X, y)
 
     # Print performance information
     print(f"Accuracy: {lr_model.score(X, y)}")
