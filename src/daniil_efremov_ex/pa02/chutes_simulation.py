@@ -37,10 +37,7 @@ class Board:
 
         Returns:
         bool: Returning true or false if goal is reached or not"""
-        if position >= self.goal:
-            return True
-        else:
-            return False
+        return position >= self.goal
 
     def position_adjustment(self, position):
         """Class method checks if the position the player
