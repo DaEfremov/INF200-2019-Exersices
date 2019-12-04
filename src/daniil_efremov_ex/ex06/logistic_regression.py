@@ -85,10 +85,10 @@ def logistic_gradient(coef, X, y):
     """
 
     y_hat = predict_proba(coef, X)
-    something = y - y_hat
+    delta_y = y_hat - y
     gradient = np.zeros(np.shape(coef))
     for i in range(len(X[0, :])):
-        gradient[i] = something.dot(X[:, i])
+        gradient[i] = delta_y.dot(X[:, i])
     return gradient
 
 
